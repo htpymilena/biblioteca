@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByAvailableCopiesGreaterThan(int copies);
+    boolean existsByIsbn(String isbn);
 }
