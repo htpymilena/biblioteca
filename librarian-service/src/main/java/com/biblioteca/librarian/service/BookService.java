@@ -39,6 +39,11 @@ public class BookService {
         book.setTitle(bookDetails.getTitle());
         book.setAuthor(bookDetails.getAuthor());
         book.setIsbn(bookDetails.getIsbn());
+        book.setPublicationYear(bookDetails.getPublicationYear());
+        book.setPublisher(bookDetails.getPublisher());
+        book.setGenre(bookDetails.getGenre());
+        book.setPageCount(bookDetails.getPageCount());
+        book.setSynopsis(bookDetails.getSynopsis());
         if (bookDetails.getTotalCopies() < book.getTotalCopies() - book.getAvailableCopies()) {
             throw new BusinessException("Total de copias não pode ser menor do que o número de livros atualmente emprestados.");
         }

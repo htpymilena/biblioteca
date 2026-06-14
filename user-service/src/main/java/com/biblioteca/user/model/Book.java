@@ -27,4 +27,16 @@ public class Book {
 
     private int totalCopies;
     private int availableCopies;
+
+    private Integer publicationYear;
+    
+    private String publisher;
+
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
+
+    private Integer pageCount;
+
+    @Column(columnDefinition = "TEXT")
+    private String synopsis;
 }

@@ -1,0 +1,167 @@
+========================================================================
+             SISTEMA DE BIBLIOTECA - RELATÓRIO DE EMPRÉSTIMOS E TAXAS
+========================================================================
+
+Este relatório detalha o estado inicial do banco de dados populado pelo
+DataSeeder, incluindo os usuários cadastrados, suas respectivas senhas,
+os livros emprestados e a situação das taxas (multas) por atraso.
+
+A multa é calculada à taxa de R$ 5,00 por dia de atraso com base na 
+diferença entre a data de vencimento e a data de devolução (ou a data 
+atual, caso o livro ainda não tenha sido devolvido).
+
+------------------------------------------------------------------------
+1. CONTAS DE USUÁRIO CADASTRADAS (ADMIN, BIBLIOTECÁRIO E LEITORES)
+------------------------------------------------------------------------
+* Administradora:
+  - Nome: Milena
+  - E-mail: milena@gmail.com
+  - Senha: Milena@123
+  - Perfil: ADMIN
+
+* Bibliotecário:
+  - Nome: Adam
+  - E-mail: adam@gmail.com
+  - Senha: Adam@123
+  - Perfil: LIBRARIAN
+
+* Leitor Padrão:
+  - Nome: Gabriel
+  - E-mail: gabriel@gmail.com
+  - Senha: Gabriel@123
+  - Perfil: USER
+
+* Novos Leitores Adicionados (6 Perfis):
+  1. Pedro Alvares Cabral  | pedro@gmail.com      | Senha: Pedro@123
+  2. Dom Joao VI           | domjoao@gmail.com    | Senha: Domjoao@123
+  3. Princesa Isabel       | isabel@gmail.com      | Senha: Isabel@123
+  4. Anita Garibaldi       | anita@gmail.com      | Senha: Anita@123
+  5. Getulio Vargas        | getulio@gmail.com    | Senha: Getulio@123
+  6. Juscelino Kubitschek  | juscelino@gmail.com  | Senha: Juscelino@123
+
+------------------------------------------------------------------------
+2. DETALHAMENTO DE EMPRÉSTIMOS E TAXAS PENDENTES (POR USUÁRIO)
+------------------------------------------------------------------------
+
+----------------------------------------------------
+USUÁRIO: Pedro Alvares Cabral (pedro@gmail.com)
+----------------------------------------------------
+- Empréstimo 1: "Dom Casmurro" (Machado de Assis)
+  * Data do Empréstimo: 20 dias atrás
+  * Data de Vencimento: 6 dias atrás
+  * Data de Devolução: [Não Devolvido]
+  * Status: EM ATRASO (OVERDUE)
+  * Dias de Atraso: 6 dias
+  * Multa Acumulada: R$ 30,00 (6 dias * R$ 5,00) - Livro Indisponível para outros.
+  
+- Empréstimo 2: "Grande Sertão: Veredas" (João Guimarães Rosa)
+  * Data do Empréstimo: 5 dias atrás
+  * Data de Vencimento: 9 dias no futuro
+  * Data de Devolução: [Não Devolvido]
+  * Status: ATIVO (ACTIVE) - Dentro do prazo.
+
+----------------------------------------------------
+USUÁRIO: Dom Joao VI (domjoao@gmail.com)
+----------------------------------------------------
+- Empréstimo 1: "O Alquimista" (Paulo Coelho)
+  * Data do Empréstimo: 30 dias atrás
+  * Data de Vencimento: 16 dias atrás
+  * Data de Devolução: 10 dias atrás (Atraso de 6 dias na entrega)
+  * Status: EM ATRASO (OVERDUE - Aguardando pagamento de multa)
+  * Dias de Atraso: 6 dias
+  * Multa Pendente: R$ 30,00 (Livro já foi devolvido física e sistemicamente, restando pagar a taxa).
+
+- Empréstimo 2: "Memórias Póstumas de Brás Cubas" (Machado de Assis)
+  * Data do Empréstimo: 25 dias atrás
+  * Data de Vencimento: 11 dias atrás
+  * Data de Devolução: 11 dias atrás (Entregue exatamente no dia limite)
+  * Status: DEVOLVIDO (RETURNED) - Sem multas pendentes.
+
+----------------------------------------------------
+USUÁRIO: Princesa Isabel (isabel@gmail.com)
+----------------------------------------------------
+- Empréstimo 1: "Iracema" (José de Alencar)
+  * Data do Empréstimo: 10 dias atrás
+  * Data de Vencimento: 4 dias no futuro
+  * Data de Devolução: [Não Devolvido]
+  * Status: ATIVO (ACTIVE) - Dentro do prazo.
+
+- Empréstimo 2: "O Cortiço" (Aluísio Azevedo)
+  * Data do Empréstimo: 30 dias atrás
+  * Data de Vencimento: 16 dias atrás
+  * Data de Devolução: [Não Devolvido]
+  * Status: EM ATRASO (OVERDUE)
+  * Dias de Atraso: 16 dias
+  * Multa Acumulada: R$ 80,00 (16 dias * R$ 5,00) - Livro Indisponível para outros.
+
+----------------------------------------------------
+USUÁRIO: Anita Garibaldi (anita@gmail.com)
+----------------------------------------------------
+- Empréstimo 1: "Macunaíma" (Mário de Andrade)
+  * Data do Empréstimo: 40 dias atrás
+  * Data de Vencimento: 26 dias atrás
+  * Data de Devolução: [Não Devolvido]
+  * Status: EM ATRASO (OVERDUE)
+  * Dias de Atraso: 26 dias
+  * Multa Acumulada: R$ 130,00 (26 dias * R$ 5,00) - Livro Indisponível para outros.
+
+- Empréstimo 2: "Vidas Secas" (Graciliano Ramos)
+  * Data do Empréstimo: 8 dias atrás
+  * Data de Vencimento: 6 dias no futuro
+  * Data de Devolução: [Não Devolvido]
+  * Status: ATIVO (ACTIVE) - Dentro do prazo.
+
+----------------------------------------------------
+USUÁRIO: Getulio Vargas (getulio@gmail.com)
+----------------------------------------------------
+- Empréstimo 1: "Capitães da Areia" (Jorge Amado)
+  * Data do Empréstimo: 50 dias atrás
+  * Data de Vencimento: 36 dias atrás
+  * Data de Devolução: [Não Devolvido]
+  * Status: EM ATRASO (OVERDUE)
+  * Dias de Atraso: 36 dias
+  * Multa Acumulada: R$ 180,00 (36 dias * R$ 5,00) - Livro Indisponível para outros.
+
+- Empréstimo 2: "A Hora da Estrela" (Clarice Lispector)
+  * Data do Empréstimo: 60 dias atrás
+  * Data de Vencimento: 46 dias atrás
+  * Data de Devolução: 44 dias atrás (Atraso de 2 dias na entrega)
+  * Status: EM ATRASO (OVERDUE - Aguardando pagamento de multa)
+  * Dias de Atraso: 2 dias
+  * Multa Pendente: R$ 10,00
+
+----------------------------------------------------
+USUÁRIO: Juscelino Kubitschek (juscelino@gmail.com)
+----------------------------------------------------
+- Empréstimo 1: "Sagarana" (João Guimarães Rosa)
+  * Data do Empréstimo: 4 dias atrás
+  * Data de Vencimento: 10 dias no futuro
+  * Data de Devolução: [Não Devolvido]
+  * Status: ATIVO (ACTIVE) - Dentro do prazo.
+
+- Empréstimo 2: "O Tempo e o Vento: O Continente" (Erico Verissimo)
+  * Data do Empréstimo: 15 dias atrás
+  * Data de Vencimento: 1 dia atrás
+  * Data de Devolução: [Não Devolvido]
+  * Status: EM ATRASO (OVERDUE)
+  * Dias de Atraso: 1 dia
+  * Multa Acumulada: R$ 5,00 (1 dia * R$ 5,00) - Livro Indisponível para outros.
+
+----------------------------------------------------
+USUÁRIO: Gabriel (gabriel@gmail.com)
+----------------------------------------------------
+- Empréstimo 1: "Auto da Compadecida" (Ariano Suassuna)
+  * Data do Empréstimo: 12 dias atrás
+  * Data de Vencimento: 2 dias no futuro
+  * Data de Devolução: [Não Devolvido]
+  * Status: ATIVO (ACTIVE) - Dentro do prazo.
+
+- Empréstimo 2: "Laços de Família" (Clarice Lispector)
+  * Data do Empréstimo: 3 dias atrás
+  * Data de Vencimento: 11 dias no futuro
+  * Data de Devolução: [Não Devolvido]
+  * Status: ATIVO (ACTIVE) - Dentro do prazo.
+
+------------------------------------------------------------------------
+FIM DO RELATÓRIO
+------------------------------------------------------------------------

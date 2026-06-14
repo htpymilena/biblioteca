@@ -10,7 +10,25 @@ interface BookDetail {
   isbn: string;
   totalCopies: number;
   availableCopies: number;
+  publicationYear?: number;
+  publisher?: string;
+  genre?: string;
+  pageCount?: number;
+  synopsis?: string;
 }
+
+const GENRE_LABELS: Record<string, string> = {
+  FICCAO: 'Ficção',
+  ROMANCE: 'Romance',
+  FANTASIA: 'Fantasia',
+  CIENCIA: 'Ciência',
+  HISTORIA: 'História',
+  BIOGRAFIA: 'Biografia',
+  DRAMA: 'Drama',
+  POESIA: 'Poesia',
+  SUSPENSE: 'Suspense',
+  OUTRO: 'Outro'
+};
 
 const BookDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -49,7 +67,6 @@ const BookDetailPage: React.FC = () => {
     try {
       await userApi.post('/api/users/loans', { bookId: book.id });
       setSuccess('Empréstimo realizado com sucesso! Você tem 14 dias para devolver.');
-      // Atualiza os dados do livro na tela
       setBook(prev => prev ? { ...prev, availableCopies: prev.availableCopies - 1 } : null);
       setTimeout(() => {
         navigate('/user/loans');
@@ -156,6 +173,34 @@ const BookDetailPage: React.FC = () => {
 
         <hr style={{ border: 0, borderTop: '1px solid var(--white-muted)' }} />
 
+        {/* Informações detalhadas da obra */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ padding: '1rem', backgroundColor: 'var(--white-soft)', borderRadius: '8px' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--gray-500)' }}>Gênero</span>
+            <p style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--blue-950)', marginTop: '0.25rem' }}>
+              {GENRE_LABELS[book.genre || ''] || 'Não especificado'}
+            </p>
+          </div>
+          <div style={{ padding: '1rem', backgroundColor: 'var(--white-soft)', borderRadius: '8px' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--gray-500)' }}>Editora</span>
+            <p style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--blue-950)', marginTop: '0.25rem' }}>
+              {book.publisher || 'Não especificada'}
+            </p>
+          </div>
+          <div style={{ padding: '1rem', backgroundColor: 'var(--white-soft)', borderRadius: '8px' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--gray-500)' }}>Ano Publicação</span>
+            <p style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--blue-950)', marginTop: '0.25rem' }}>
+              {book.publicationYear || 'N/A'}
+            </p>
+          </div>
+          <div style={{ padding: '1rem', backgroundColor: 'var(--white-soft)', borderRadius: '8px' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--gray-500)' }}>Páginas</span>
+            <p style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--blue-950)', marginTop: '0.25rem' }}>
+              {book.pageCount || 'N/A'}
+            </p>
+          </div>
+        </div>
+
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
           <div style={{ padding: '1rem', backgroundColor: 'var(--white-soft)', borderRadius: '8px' }}>
             <span style={{ fontSize: '0.8rem', color: 'var(--gray-500)' }}>Total de Exemplares</span>
@@ -167,6 +212,22 @@ const BookDetailPage: React.FC = () => {
               {book.availableCopies}
             </p>
           </div>
+        </div>
+
+        {/* Sinopse */}
+        <div>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--blue-950)' }}>Sinopse</h2>
+          <p style={{
+            lineHeight: '1.6',
+            color: 'var(--blue-950)',
+            whiteSpace: 'pre-wrap',
+            padding: '1rem',
+            backgroundColor: 'var(--white-soft)',
+            borderRadius: '8px',
+            fontSize: '0.95rem'
+          }}>
+            {book.synopsis || 'Nenhuma sinopse disponível para esta obra.'}
+          </p>
         </div>
 
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
