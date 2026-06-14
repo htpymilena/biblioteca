@@ -15,11 +15,12 @@ public class PenaltyCalculationService {
     private final SystemParameterRepository paramRepo;
 
     public BigDecimal calculatePenalty(LocalDate dueDate, LocalDate returnDate) {
-        if (!returnDate.isAfter(dueDate)) {
+        LocalDate date = returnDate != null ? returnDate : LocalDate.now();
+        if (!date.isAfter(dueDate)) {
             return BigDecimal.ZERO;
         }
 
-        long daysLate = ChronoUnit.DAYS.between(dueDate, returnDate);
+        long daysLate = ChronoUnit.DAYS.between(dueDate, date);
         BigDecimal dailyRate = paramRepo.findByParamKey("DAILY_PENALTY")
                 .map(p -> new BigDecimal(p.getParamValue()))
                 .orElse(new BigDecimal("5.00")); // fallback default
