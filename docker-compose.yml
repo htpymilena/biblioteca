@@ -66,5 +66,16 @@ services:
       db:
         condition: service_healthy
 
+  frontend:
+    build: ./frontend
+    container_name: biblioteca_frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - biblioteca-net
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
 volumes:
   pg_data:
