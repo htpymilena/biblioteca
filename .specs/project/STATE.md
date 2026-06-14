@@ -1,7 +1,7 @@
 # State
 
-**Last Updated:** 2026-06-14T20:21:00Z
-**Current Work:** Milestone 3 concluído (Lógica de negócios, JWT, AOP e REST APIs). Pronto para Milestone 4 (Containerização Docker e Orquestração).
+**Last Updated:** 2026-06-14T20:26:00Z
+**Current Work:** Milestone 4 concluído (Containerização e Orquestração Docker). O backend está 100% estruturado, implementado e pronto para execução. Próximo passo é iniciar o desenvolvimento do Front-end em React + Vite.
 
 ---
 
@@ -32,6 +32,7 @@
 ## Lessons Learned
 
 - O compartilhamento da base de dados PostgreSQL (`biblioteca_DB`) permitiu que os três serviços independentes pudessem consultar a mesma tabela de auditoria (`audit_logs`) e parâmetros do sistema (`system_parameters`) sem necessidade de chamadas REST síncronas entre si, simplificando consideravelmente a arquitetura e reduzindo latência.
+- O uso de Dockerfiles multi-stage com compilação isolada no Maven garante que os containers de execução possuam apenas o JRE (Java Runtime Environment) enxuto, otimizando o tamanho das imagens docker de R$ ~500MB para R$ ~150MB.
 
 ---
 
@@ -42,6 +43,7 @@
 | 001 | Criação do PRD inicial   | 2026-06-14 | -      | ✅ Done |
 | 002 | Implementação da Fase 2 (JPA Models & Seed) | 2026-06-14 | - | ✅ Done |
 | 003 | Implementação da Fase 3 (Segurança JWT, AOP & REST APIs) | 2026-06-14 | - | ✅ Done |
+| 004 | Implementação da Fase 4 (Dockerfiles & Compose) | 2026-06-14 | - | ✅ Done |
 
 ---
 
@@ -60,7 +62,7 @@
 - [x] Criar Tratamento de Exceções Global nos 3 microsserviços
 - [x] Adicionar auditoria distribuída via Spring AOP (@Auditable)
 - [x] Criar services de lógica de negócio e controllers REST correspondentes
-- [ ] Containerizar os microsserviços com Dockerfiles e Docker Compose
+- [x] Containerizar os microsserviços com Dockerfiles e Docker Compose
 
 ---
 

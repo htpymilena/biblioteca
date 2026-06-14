@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** Milestone 4: Docker Orchestration
-**Status:** In Progress
+**Current Milestone:** Backend Execution & Frontend Stage
+**Status:** Completed
 
 ---
 
@@ -54,5 +54,5 @@
 **Goal:** Containerização final dos 3 serviços e orquestração do ambiente com Docker Compose.
 
 ### Features
-- **[Dockerization]** - PLANNED
-
+- **[Dockerization]** - COMPLETE
+- **[Orchestration Configuration]** - COMPLETE
