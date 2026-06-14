@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users/loans")
 @RequiredArgsConstructor
@@ -20,6 +22,16 @@ public class LoanController {
 
     private final LoanService loanService;
     private final UserRepository userRepository;
+
+    @GetMapping
+    public ResponseEntity<List<Loan>> getMyLoans(Authentication auth) {
+        if (auth == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário logado não encontrado."));
+        return ResponseEntity.ok(loanService.getAllLoansByUser(user));
+    }
 
     @PostMapping
     public ResponseEntity<Loan> createLoan(Authentication auth, @RequestBody @Valid LoanRequest req) {

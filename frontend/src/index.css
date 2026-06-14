@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Azul — identidade principal */
+  --blue-950: #172554; /* Sidebar dark, tipografia principal */
+  --blue-900: #1e3a8a; /* Header, navbar ativa */
+  --blue-700: #1d4ed8; /* Botões primários, links ativos */
+  --blue-500: #3b82f6; /* Destaques, ícones, badges */
+  --blue-300: #93c5fd; /* Bordas suaves, hover states */
+  --blue-100: #dbeafe; /* Background de cards de livros */
+  --blue-50:  #eff6ff; /* Fundo geral das páginas */
+
+  /* Branco — hierarquia e profundidade */
+  --white-pure:  #ffffff; /* Modals, dropdowns, tooltips */
+  --white-card:  #fafafa; /* Cards principais */
+  --white-soft:  #f5f5f5; /* Fundo de seções internas */
+  --white-muted: #f0f0f0; /* Linhas separadoras, table stripes */
+  --white-dim:   #e8e8e8; /* Inputs desabilitados, skeletons */
+
+  /* Suporte — Status e Alertas */
+  --emerald-500: #10b981; /* Sucesso, Livro Disponível */
+  --amber-400:   #fbbf24; /* Reservado, Prazo próximo */
+  --red-500:     #ef4444; /* Erros, Multas, Indisponível */
+  --gray-500:    #6b7280; /* Textos secundários, autores */
+  --gray-100:    #f3f4f6; /* Skeletons */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --transition-all: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--blue-50);
+  color: var(--blue-950);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--blue-50);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--blue-300);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-500);
+}
+
+/* Layout Estrutural */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.content-page {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Typography */
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--blue-950);
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--blue-900);
+  margin-bottom: 1rem;
+}
+
+p.subtitle {
+  color: var(--gray-500);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-all);
+  text-decoration: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--blue-700);
+  color: var(--white-pure);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--blue-900);
+}
+
+.btn-secondary {
+  background-color: var(--blue-100);
+  color: var(--blue-700);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--blue-300);
+}
+
+.btn-danger {
+  background-color: var(--red-500);
+  color: var(--white-pure);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--gray-500);
+  border-color: var(--white-muted);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--white-soft);
+  color: var(--blue-950);
+}
+
+/* Forms & Inputs */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--blue-950);
+  margin-bottom: 0.375rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  border-radius: 6px;
+  border: 1px solid var(--blue-300);
+  background-color: var(--white-pure);
+  color: var(--blue-950);
+  transition: var(--transition-all);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--blue-700);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.form-control:disabled {
+  background-color: var(--white-dim);
+  cursor: not-allowed;
+}
+
+/* Cards */
+.card {
+  background-color: var(--white-pure);
+  border: 1px solid var(--white-muted);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-all);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Tables */
+.table-container {
+  background-color: var(--white-pure);
+  border: 1px solid var(--white-muted);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.data-table th {
+  background-color: var(--white-soft);
+  color: var(--blue-950);
+  font-weight: 600;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--white-muted);
+}
+
+.data-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--white-muted);
+  color: var(--blue-950);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: var(--white-card);
+}
+
+.data-table tr:hover {
+  background-color: var(--blue-50);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.badge-emerald {
+  background-color: #d1fae5;
+  color: var(--emerald-500);
+}
+
+.badge-amber {
+  background-color: #fef3c7;
+  color: var(--amber-400);
+}
+
+.badge-red {
+  background-color: #fee2e2;
+  color: var(--red-500);
+}
+
+.badge-blue {
+  background-color: var(--blue-100);
+  color: var(--blue-700);
+}
+
+.badge-gray {
+  background-color: var(--gray-100);
+  color: var(--gray-500);
+}
+
+/* Grid Layouts */
+.grid-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Toast/Alert Utility */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  animation: slideIn 0.2s ease-out;
+}
+
+.toast-success { background-color: var(--emerald-500); }
+.toast-error { background-color: var(--red-500); }
+
+@keyframes slideIn {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

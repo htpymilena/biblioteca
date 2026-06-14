@@ -31,6 +31,10 @@ public class LoanService {
         return loanRepository.findByUserAndStatus(user, LoanStatus.ACTIVE);
     }
 
+    public List<Loan> getAllLoansByUser(User user) {
+        return loanRepository.findByUser(user);
+    }
+
     @Auditable(action = "REALIZAR_EMPRESTIMO")
     public Loan createLoan(User user, Long bookId) {
         // Limit of 3 active or overdue loans
