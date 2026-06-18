@@ -39,6 +39,7 @@ const BookDetailPage: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [hasRequestedNotification, setHasRequestedNotification] = useState(false);
 
   const fetchBookDetails = async () => {
     try {
@@ -46,6 +47,15 @@ const BookDetailPage: React.FC = () => {
       setError(null);
       const response = await userApi.get(`/api/users/catalog/${id}`);
       setBook(response.data);
+
+      if (response.data && response.data.availableCopies <= 0) {
+        try {
+          const checkResp = await userApi.get(`/api/users/notifications/check/${id}`);
+          setHasRequestedNotification(!!checkResp.data.requested);
+        } catch (checkErr) {
+          console.error('Erro ao verificar status da notificação:', checkErr);
+        }
+      }
     } catch (err: any) {
       console.error(err);
       setError('Falha ao carregar os detalhes do livro.');
@@ -88,6 +98,7 @@ const BookDetailPage: React.FC = () => {
     try {
       await userApi.post('/api/users/notifications/request', { bookId: book.id });
       setSuccess('Você receberá um e-mail assim que este livro estiver disponível novamente!');
+      setHasRequestedNotification(true);
     } catch (err: any) {
       console.error(err);
       setError(err.response?.data?.message || 'Falha ao solicitar notificação.');
@@ -245,9 +256,9 @@ const BookDetailPage: React.FC = () => {
               className="btn btn-secondary"
               style={{ padding: '0.875rem 2rem', fontSize: '1rem' }}
               onClick={handleNotificationRequest}
-              disabled={submitting}
+              disabled={submitting || hasRequestedNotification}
             >
-              {submitting ? 'Aguarde...' : 'Avise-me quando estiver disponível'}
+              {submitting ? 'Aguarde...' : hasRequestedNotification ? 'Notificação Ativada' : 'Avise-me quando estiver disponível'}
             </button>
           )}
           

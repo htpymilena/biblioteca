@@ -31,6 +31,10 @@ public class NotificationService {
             throw new BusinessException("O livro possui exemplares disponíveis. Não é necessário solicitar notificação.");
         }
 
+        if (stockNotificationRepository.existsByUserIdAndBookIdAndNotifiedFalse(user.getId(), bookId)) {
+            throw new BusinessException("Você já solicitou notificação para este livro.");
+        }
+
         StockNotification notification = new StockNotification();
         notification.setUserId(user.getId());
         notification.setUserEmail(user.getEmail());
@@ -38,6 +42,10 @@ public class NotificationService {
         notification.setNotified(false);
 
         return stockNotificationRepository.save(notification);
+    }
+
+    public boolean isNotificationRequested(Long userId, Long bookId) {
+        return stockNotificationRepository.existsByUserIdAndBookIdAndNotifiedFalse(userId, bookId);
     }
 
     public void notifyUsersForBook(Long bookId) {

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface StockNotificationRepository extends JpaRepository<StockNotification, Long> {
     List<StockNotification> findByBookIdAndNotifiedFalse(Long bookId);
+    boolean existsByUserIdAndBookIdAndNotifiedFalse(Long userId, Long bookId);
 }
