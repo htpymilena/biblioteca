@@ -241,8 +241,8 @@ public class DataSeeder implements CommandLineRunner {
         book.setTitle(title);
         book.setAuthor(author);
         book.setIsbn(isbn);
-        book.setTotalCopies(1);
-        book.setAvailableCopies(1);
+        book.setTotalCopies(100);
+        book.setAvailableCopies(100);
         book.setPublicationYear(year);
         book.setPublisher(publisher);
         book.setGenre(genre);
