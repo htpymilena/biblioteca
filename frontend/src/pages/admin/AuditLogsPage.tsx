@@ -5,7 +5,8 @@ import EmptyState from '../../components/EmptyState';
 
 interface AuditLog {
   id: number;
-  userEmail: string;
+  userId: number | null;
+  userName: string | null;
   action: string;
   timestamp: string;
 }
@@ -37,12 +38,12 @@ const AuditLogsPage: React.FC = () => {
     fetchLogs();
   }, []);
 
-  const tableHeaders = ['ID', 'Operador (E-mail)', 'Ação Realizada', 'Data / Horário'];
+  const tableHeaders = ['ID do Usuário', 'Nome do Usuário', 'Ação Realizada', 'Data / Horário'];
 
   const renderRow = (log: AuditLog) => (
     <tr key={log.id}>
-      <td><code>#{log.id}</code></td>
-      <td style={{ fontWeight: 600 }}>{log.userEmail || 'Sistema (Anonymous)'}</td>
+      <td><code>{log.userId ? `#${log.userId}` : 'Sistema'}</code></td>
+      <td style={{ fontWeight: 600 }}>{log.userName || 'Sistema'}</td>
       <td>
         <span style={{
           display: 'inline-block',
