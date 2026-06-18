@@ -19,7 +19,7 @@ const AuditLogsPage: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await adminApi.get('/api/admin/audit');
+      const response = await adminApi.get('/api/admin/audit/logs');
       // Ordena logs por timestamp decrescente (mais recentes primeiro)
       const sorted = response.data.sort((a: AuditLog, b: AuditLog) => 
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()

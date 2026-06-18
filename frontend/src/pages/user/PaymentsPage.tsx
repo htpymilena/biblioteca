@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userApi from '../../services/userApi';
 import EmptyState from '../../components/EmptyState';
+import PaymentModal from '../../components/PaymentModal';
 
 interface Book {
   id: number;
@@ -24,6 +25,10 @@ const PaymentsPage: React.FC = () => {
   const [submitting, setSubmitting] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLoan, setSelectedLoan] = useState<any | null>(null);
 
   const navigate = useNavigate();
 
@@ -68,18 +73,25 @@ const PaymentsPage: React.FC = () => {
     fetchOverdueLoans();
   }, []);
 
-  const handleSimulatePayment = async (loanId: number, amount: number) => {
+  const handleOpenPaymentModal = (loan: any) => {
+    setSelectedLoan(loan);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmPayment = async () => {
+    if (!selectedLoan) return;
     setError(null);
     setSuccess(null);
-    setSubmitting(loanId);
+    setSubmitting(selectedLoan.id);
 
     try {
       await userApi.post('/api/users/payments/simulate', {
-        loanId,
-        amount: amount
+        loanId: selectedLoan.id,
+        amount: selectedLoan.amount
       });
       setSuccess('Pagamento simulado com sucesso! A multa foi quitada.');
-      // Remove do estado local ou recarrega a lista
+      setIsModalOpen(false);
+      setSelectedLoan(null);
       fetchOverdueLoans();
     } catch (err: any) {
       console.error(err);
@@ -162,7 +174,7 @@ const PaymentsPage: React.FC = () => {
                 <button
                   className="btn btn-danger"
                   style={{ padding: '0.75rem 1.25rem' }}
-                  onClick={() => handleSimulatePayment(loan.id, loan.amount)}
+                  onClick={() => handleOpenPaymentModal(loan)}
                   disabled={submitting !== null}
                 >
                   {submitting === loan.id ? 'Processando...' : 'Pagar Multa'}
@@ -176,6 +188,20 @@ const PaymentsPage: React.FC = () => {
           message="Tudo certo! Você não possui nenhuma taxa pendente de pagamento."
           ctaText="Ver Meus Empréstimos"
           onCtaClick={() => navigate('/user/loans')}
+        />
+      )}
+
+      {selectedLoan && (
+        <PaymentModal
+          isOpen={isModalOpen}
+          amount={selectedLoan.amount}
+          loanTitle={selectedLoan.book.title}
+          onConfirm={handleConfirmPayment}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedLoan(null);
+          }}
+          submitting={submitting === selectedLoan.id}
         />
       )}
     </div>
