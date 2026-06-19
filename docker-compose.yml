@@ -2,39 +2,19 @@ networks:
   biblioteca-net:
 
 services:
-  db:
-    image: postgres:15-alpine
-    container_name: biblioteca_db
-    environment:
-      POSTGRES_DB: biblioteca_DB
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "123456"
-    ports:
-      - "5432:5432"
-    networks:
-      - biblioteca-net
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d biblioteca_DB"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
   admin-service:
     build: ./admin-service
     container_name: admin_service
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/biblioteca_DB
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/biblioteca_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - biblioteca-net
-    depends_on:
-      db:
-        condition: service_healthy
 
   librarian-service:
     build: ./librarian-service
@@ -42,14 +22,13 @@ services:
     ports:
       - "8082:8082"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/biblioteca_DB
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/biblioteca_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - biblioteca-net
-    depends_on:
-      db:
-        condition: service_healthy
 
   user-service:
     build: ./user-service
@@ -57,14 +36,13 @@ services:
     ports:
       - "8083:8083"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/biblioteca_DB
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/biblioteca_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - biblioteca-net
-    depends_on:
-      db:
-        condition: service_healthy
 
   frontend:
     build: ./frontend
@@ -77,5 +55,3 @@ services:
       - ./frontend:/app
       - /app/node_modules
 
-volumes:
-  pg_data:
